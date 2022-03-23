@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: local
+  application:
+    name: springAnnotation
+  lifecycle:
+    timeout-per-shutdown-phase: 10s  # 停机等待10s
+
+server:
+  port: 8009
+  servlet:
+    context-path: /
+  shutdown: graceful
