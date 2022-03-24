@@ -58,4 +58,57 @@ public class CountDownLatchTest {
         Thread.sleep(2000);
         System.out.println("主线程退出");
     }
+
+
+
+    @Test
+    void  testMainThreadAwait(){
+        CountDownLatch countDownLatch2 = new CountDownLatch(2);
+
+        Thread thread1 = new Thread(new Runnable() {
+            
+            @Override
+            public void run() {
+                
+                try {
+                    System.out.println("Thread1 execute 2000 ms ");
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                countDownLatch2.countDown();
+                System.out.println("Thread1 finished");
+            }
+        });
+
+
+
+        Thread thread2 = new Thread(new Runnable() {
+            
+            @Override
+            public void run() {
+                
+                try {
+                    System.out.println("Thread2 execute 7000 ms ");
+                    Thread.sleep(7000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                countDownLatch2.countDown();
+                System.out.println("Thread2 finished");
+            }
+        });
+
+        thread1.start();
+        thread2.start();
+
+        try {
+            System.out.println("主线程执行 await 之前");
+            countDownLatch2.await();
+            System.out.println("子线程已全部结束，主线程结束");
+        } catch (InterruptedException e) {
+
+            e.printStackTrace();
+        }
+    }
 }

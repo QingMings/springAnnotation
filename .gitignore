@@ -1,1 +1,4 @@
 /target/
+/build/
+/src/main/resources/libhelloJNA.so
+/.vscode/
